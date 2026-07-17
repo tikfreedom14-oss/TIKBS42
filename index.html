@@ -861,7 +861,6 @@ footer .fin{font-family:"Oswald",sans-serif;font-size:20px;color:var(--text);mar
 
 <script>
 const RACE = new Date("2026-11-15T05:00:00+07:00");
-const CURRENT_WEEK = 19;
 
 const zones = [
   {t:"Interval",n:"Sub-Threshold",p:"4:00–4:10",d:"Cadence 176–182 · HR แตะ Zone 5 (>172) · VO2max work",c:"var(--coral)"},
@@ -896,7 +895,16 @@ const weeks = [
  {w:34,ph:"Taper",date:"26/10",focus:"Taper ต่อ · ลดอีก",days:[["Tue","Fartlek 2min hard/2min easy ×6\nเบา สั้นลง"],["Wed","Easy 6km @5:40–6:00"],["Thu","MP Run 10km @4:35–4:37\nสั้นลง · รักษาความคุ้น pace"],["Fri","Core + Stretching เบา"],["Sat","Easy 5km @5:40–6:00 + strides 4×80m"],["Sun","Long 18km @5:25–5:40 Zone 2",1]]},
  {w:35,ph:"Taper",date:"02/11",focus:"อาทิตย์ก่อนแข่ง · พักขา",days:[["Tue","Interval 400m ×6 @4:00–4:10\nrecovery jog full · sharpen เบาๆ"],["Wed","Easy 5km @5:40–6:00"],["Thu","Easy 8km @5:15–6:00\nJP Build-Up เบาๆ ปลุกขา"],["Fri","Stretching Only"],["Sat","Easy 5km @5:40–6:00 + strides 4×80m"],["Sun","Long 10–12km @5:20–5:40\nเบาที่สุด · Carb-load เริ่ม",1]]},
  {w:36,ph:"RACE",date:"09/11",focus:"🏆 RACE WEEK",days:[["Tue","Easy 5km @5:30–6:00 + strides\nขาเบา สดชื่น"],["Wed","Rest"],["Thu","Easy 5km @5:30–6:00 + strides\nขาเบา ก่อนแข่ง"],["Fri","Rest / Carb Load"],["Sat","Rest ຫຼือ jog เบามาก 15min"],["Sun","🏆 RACE DAY — Sub 3:15!\nPace เป้า 4:37 · Gel ทุก 35 นาที · Zone 3-4",1]]},
-];
+];function calcCurrentWeek(){
+  const now = new Date(); now.setHours(0,0,0,0);
+  let w = weeks[0].w;
+  for(const wk of weeks){
+    const [d,m] = wk.date.split("/").map(Number);
+    if(now >= new Date(2026,m-1,d)) w = wk.w; else break;
+  }
+  return w;
+}
+const CURRENT_WEEK = calcCurrentWeek();
 
 const rehab = [
  {h:"☀️ ຕອນເຊົ້າ (ກ່ອນກ້າວທຳອິດ)",ex:[
